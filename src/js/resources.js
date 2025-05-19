@@ -5,7 +5,8 @@ const Resources = {
     Background: new ImageSource('images/background.png'),
     Shadow: new ImageSource('images/shadow.png'),
     Dobber: new ImageSource('images/dobber.png'),
-    Cloud: new ImageSource('images/cloud.png')
+    Cloud: new ImageSource('images/cloud.png'),
+    Sun: new ImageSource('images/sun.png')
 }
 
 

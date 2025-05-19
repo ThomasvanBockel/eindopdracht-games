@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, Keyboard } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, Keyboard, Font, FontUnit, Color, Label } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Background } from './background.js'
 import { SmallFish } from './small_fish.js'
@@ -7,7 +7,7 @@ import { MediumFish } from './medium_fish.js'
 import { Tire } from './tire.js'
 import { Dobber } from './dobber.js'
 import { Cloud } from './cloud.js'
-
+import {Sun} from './sun.js'
 
 
 export class Game extends Engine {
@@ -24,10 +24,17 @@ export class Game extends Engine {
     }
 
     startGame() {
+        this.score = 0
+
         const bg = new Background()
         this.add(bg)
 
-        for (let i = 0; i < 5; i++) {
+
+
+        const sun = new Sun()
+        this.add(sun)
+
+        for (let i = 0; i < 50; i++) {
             const cloud = new Cloud()
             this.add(cloud)
 
@@ -46,8 +53,26 @@ export class Game extends Engine {
         const dobber = new Dobber()
         this.add(dobber)
 
+        this.scoreLabel = new Label({
+            text: 'Score: 0',
+            pos: new Vector(500, 0),
+            font: new Font({
+                family: 'Arial',
+                size: 50,
+                unit: FontUnit.Px,
+                color: Color.Black
+             
+            })
+        })
+         this.add(this.scoreLabel)
+        this.scoreLabel.text = 'Score: 0'
+
     }
-   
+    addscore(){
+        console.log("reh")
+        this.score++
+        this.scoreLabel.text = `Score: ${this.score}`
+    }
 }
 
 new Game()

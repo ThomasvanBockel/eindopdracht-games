@@ -11,6 +11,7 @@ export class SmallFish extends Actor {
         this.scale = new Vector(0.1, 0.1)
         this.vel = new Vector(randomInRange(-100, -200),0)
         this.events.on("exitviewport", (e) => this.FishBack(e))
+  
     }
 
     FishBack(e) {

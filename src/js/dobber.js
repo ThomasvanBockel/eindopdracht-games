@@ -1,5 +1,9 @@
 import { Actor, Vector, randomInRange, Keys, Keyboard,  } from "excalibur"
 import { Resources } from './resources.js'
+import { SmallFish} from './small_fish.js'
+import { MediumFish } from './medium_fish.js'
+import { Tire } from './tire.js'
+
 
 export class Dobber extends Actor {
     constructor() {
@@ -15,6 +19,19 @@ export class Dobber extends Actor {
         
     }
 
+    onInitialize(engine){
+        this.on('collisionstart', (event) => this.hitSomething(event))
+    }
+
+    hitSomething(event) {
+        if(event.other.owner instanceof SmallFish || event.other.owner instanceof MediumFish || event.other.owner instanceof Tire) {
+            event.other.owner.kill() 
+        
+         this.scene.engine.addscore()   
+           
+       }
+    }
+
     onPostUpdate(engine) {
         let xspeed = 0;
         let yspeed = 0
@@ -26,7 +43,7 @@ export class Dobber extends Actor {
             }
         }
         if (engine.input.keyboard.isHeld(Keys.Right)) {
-            if (this.pos.x > 1270) {
+            if (this.pos.x > 1272) {
                 xspeed = 0
             } else{
             xspeed = 100;
@@ -41,7 +58,7 @@ export class Dobber extends Actor {
             }
         }
         if (engine.input.keyboard.isHeld(Keys.Down)) {
-            if (this.pos.y > 710) {
+            if (this.pos.y > 712) {
                 yspeed = 0
             } else{
             yspeed = 100;
