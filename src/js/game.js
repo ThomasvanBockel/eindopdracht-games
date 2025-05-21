@@ -7,10 +7,13 @@ import { MediumFish } from './medium_fish.js'
 import { Tire } from './tire.js'
 import { Dobber } from './dobber.js'
 import { Cloud } from './cloud.js'
-import {Sun} from './sun.js'
+import { Sun } from './sun.js'
+import { UI } from './ui.js'
 
 
 export class Game extends Engine {
+
+    ui
 
     constructor() {
         super({
@@ -20,11 +23,10 @@ export class Game extends Engine {
             displayMode: DisplayMode.FitScreen
         })
         this.start(ResourceLoader).then(() => this.startGame())
-        //  this.showDebug(true)
+        this.showDebug(true)
     }
 
     startGame() {
-        this.score = 0
 
         const bg = new Background()
         this.add(bg)
@@ -40,7 +42,8 @@ export class Game extends Engine {
 
         }
 
-        for (let i = 0; i < 16; i++) {
+        for (let i = 0; i < 50; i++) {
+
             const smallFish = new SmallFish()
             this.add(smallFish)
 
@@ -53,25 +56,10 @@ export class Game extends Engine {
         const dobber = new Dobber()
         this.add(dobber)
 
-        this.scoreLabel = new Label({
-            text: 'Score: 0',
-            pos: new Vector(500, 0),
-            font: new Font({
-                family: 'Arial',
-                size: 50,
-                unit: FontUnit.Px,
-                color: Color.Black
-             
-            })
-        })
-         this.add(this.scoreLabel)
-        this.scoreLabel.text = 'Score: 0'
 
-    }
-    addscore(){
-        console.log("reh")
-        this.score++
-        this.scoreLabel.text = `Score: ${this.score}`
+        this.ui = new UI()
+
+        this.add(this.ui)
     }
 }
 
