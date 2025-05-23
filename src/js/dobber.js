@@ -56,7 +56,7 @@ export class Dobber extends Actor {
         this.scene.engine.ui.addscore(this.score)
         this.frameCounter = 0
         this.tryingToCapture.kill()
-       
+
         console.log(this.fishCapture)
         this.graphics.use(Resources.Dobber.toSprite())
         this.fishCapture = false

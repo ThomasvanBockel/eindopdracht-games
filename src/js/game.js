@@ -9,12 +9,13 @@ import { Dobber } from './dobber.js'
 import { Cloud } from './cloud.js'
 import { Sun } from './sun.js'
 import { UI } from './ui.js'
+import { Days } from './days.js'
 
 
 export class Game extends Engine {
 
     ui
-
+    days
     constructor() {
         super({
             width: 1280,
@@ -23,11 +24,11 @@ export class Game extends Engine {
             displayMode: DisplayMode.FitScreen
         })
         this.start(ResourceLoader).then(() => this.startGame())
-        this.showDebug(true)
+        
     }
 
     startGame() {
-
+        this.showDebug(false)
         const bg = new Background()
         this.add(bg)
 
@@ -36,13 +37,12 @@ export class Game extends Engine {
         const sun = new Sun()
         this.add(sun)
 
-        for (let i = 0; i < 50; i++) {
-            const cloud = new Cloud()
-            this.add(cloud)
+        // for (let i = 0; i < 50; i++) {
+        //     const cloud = new Cloud()
+        //     this.add(cloud)
+        // }
 
-        }
-
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 16; i++) {
 
             const smallFish = new SmallFish()
             this.add(smallFish)
@@ -56,7 +56,9 @@ export class Game extends Engine {
         const dobber = new Dobber()
         this.add(dobber)
 
-
+        this.days = new Days()
+        this.add(this.days)
+        
         this.ui = new UI()
 
         this.add(this.ui)
