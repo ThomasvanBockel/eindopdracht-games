@@ -9,6 +9,7 @@ import { Dobber } from './dobber.js'
 import { Cloud } from './cloud.js'
 import { Sun } from './sun.js'
 import { UI } from './ui.js'
+import { Highscore } from './highscore.js'
 import { Days } from './days.js'
 
 
@@ -16,6 +17,7 @@ export class Game extends Engine {
 
     ui
     days
+    highscore
     constructor() {
         super({
             width: 1280,
@@ -28,7 +30,7 @@ export class Game extends Engine {
     }
 
     startGame() {
-        this.showDebug(false)
+        this.showDebug(true)
         const bg = new Background()
         this.add(bg)
 
@@ -53,15 +55,22 @@ export class Game extends Engine {
             this.add(mediumFish)
         }
 
-        const dobber = new Dobber()
+        const dobber = new Dobber(this.highscore)
         this.add(dobber)
 
         this.days = new Days()
         this.add(this.days)
-        
-        this.ui = new UI()
 
+        this.ui = new UI()
         this.add(this.ui)
+
+        
+        this.highscore = new Highscore()
+        this.add(this.highscore)
+        if(this.ui > this.highscore){
+            this.highscore = this.ui
+            console.log(this.highscore + "dfnskj")
+        }
     }
 }
 

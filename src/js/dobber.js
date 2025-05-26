@@ -9,21 +9,27 @@ export class Dobber extends Actor {
 
     fishCapture   // set to true if we are currently trying to catch
     score
+    highScore
     frameCounter
     tryingToCapture // the fish object we are currently trying to capture. set to undefined if none
+    gameStart // set to true if the dopper is in the water, set to false if fish has been catched
 
     constructor() {
         super({ width: 150, height: 150 })
-        this.frameCounter = 0
-        this.graphics.use(Resources.Dobber.toSprite())
-        this.fishCapture = false
-        this.pos = new Vector(700, 652)
+        this.gameStart = false
+        // this.frameCounter = 0
+        // this.graphics.use(Resources.Dobber.toSprite())
+        // this.fishCapture = false
+        // this.pos = new Vector(700, 652)
 
-        // max pos (1250, 650)
-        // max pos (1250, 710)
-        this.scale = new Vector(0.1, 0.1)
-        this.vel = new Vector(0, 0)
-        this.score = 0
+        // // max pos (1250, 650)
+        // // max pos (1250, 710)
+        // this.scale = new Vector(0.1, 0.1)
+        // this.vel = new Vector(0, 0)
+         this.score = 0
+     this.highScore = localStorage.getItem("highscore", this.highScore)
+     console.log(this.highScore)
+      
     }
 
     onInitialize(engine) {
@@ -44,18 +50,27 @@ export class Dobber extends Actor {
                 this.frameCounter = 0
                 event.other.owner.vel = new Vector(0, 0)
 
-                console.log(this.frameCounter + " adlFKJKJD")
+                
 
             }
         }
     }
 
     capturedFish() {
-
+console.log(this.score + " dsisfjsKJ")
         this.score = this.score + 1
+        console.log(this.score + " sdf")
         this.scene.engine.ui.addscore(this.score)
+        if(this.score > this.highScore){
+            this.highScore = this.score
+            localStorage.setItem("highscore", this.highScore)
+            this.scene.engine.highscore.addHighScore(this.score)
+        }
         this.frameCounter = 0
         this.tryingToCapture.kill()
+        this.gameStart = false
+     this.scale = new Vector(0,0)
+       
 
         console.log(this.fishCapture)
         this.graphics.use(Resources.Dobber.toSprite())
@@ -69,7 +84,26 @@ export class Dobber extends Actor {
         this.fishCapture = false
         this.tryingToCapture = undefined
     }
+
+    
+
     onPostUpdate(engine) {
+        if (engine.input.keyboard.wasPressed(Keys.Space) && this.gameStart === false) {
+            // super({ width: 150, height: 150 })
+        
+            this.gameStart = true
+            this.frameCounter = 0
+            this.graphics.use(Resources.Dobber.toSprite())
+            this.fishCapture = false
+            this.pos = new Vector(700, 652)
+
+            // max pos (1250, 650)
+            // max pos (1250, 710)
+            this.scale = new Vector(0.1, 0.1)
+            this.vel = new Vector(0, 0)
+          
+        }
+
         let xspeed = 0
         let yspeed = 0
         if (this.fishCapture) {
