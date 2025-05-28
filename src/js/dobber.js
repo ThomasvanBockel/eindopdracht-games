@@ -2,6 +2,7 @@ import { Actor, Vector, randomInRange, Keys, Keyboard, } from "excalibur"
 import { Resources } from './resources.js'
 import { SmallFish } from './small_fish.js'
 import { MediumFish } from './medium_fish.js'
+import {GoldenFish} from './golden_fish.js'
 import { Tire } from './tire.js'
 
 
@@ -26,10 +27,10 @@ export class Dobber extends Actor {
         // // max pos (1250, 710)
         // this.scale = new Vector(0.1, 0.1)
         // this.vel = new Vector(0, 0)
-         this.score = 0
-     this.highScore = localStorage.getItem("highscore", this.highScore)
-     console.log(this.highScore)
-      
+        this.score = 0
+        this.highScore = localStorage.getItem("highscore", this.highScore)
+        console.log(this.highScore)
+
     }
 
     onInitialize(engine) {
@@ -47,21 +48,37 @@ export class Dobber extends Actor {
                 this.graphics.use(Resources.DopperUnderWater.toSprite())
                 this.fishCapture = true
                 this.tryingToCapture = event.other.owner
+                console.log(this.tryingToCapture)
+
                 this.frameCounter = 0
                 event.other.owner.vel = new Vector(0, 0)
-
-                
-
             }
         }
     }
 
     capturedFish() {
-console.log(this.score + " dsisfjsKJ")
-        this.score = this.score + 1
-        console.log(this.score + " sdf")
-        this.scene.engine.ui.addscore(this.score)
-        if(this.score > this.highScore){
+        if (this.tryingToCapture instanceof Tire) {
+           
+            this.score = this.score - 1
+            this.scene.engine.ui.addscore(this.score)
+
+        } else if (this.tryingToCapture instanceof MediumFish) {
+
+            this.score = this.score + 5
+            this.scene.engine.ui.addscore(this.score)
+
+        } else if (this.tryingToCapture instanceof GoldenFish) {
+
+            this.scene.engine.gameOver()
+            return;
+
+        } else {
+
+            this.score = this.score + 1
+            this.scene.engine.ui.addscore(this.score)
+
+        }
+        if (this.score > this.highScore) {
             this.highScore = this.score
             localStorage.setItem("highscore", this.highScore)
             this.scene.engine.highscore.addHighScore(this.score)
@@ -69,13 +86,14 @@ console.log(this.score + " dsisfjsKJ")
         this.frameCounter = 0
         this.tryingToCapture.kill()
         this.gameStart = false
-     this.scale = new Vector(0,0)
-       
+        this.scale = new Vector(0, 0)
+
 
         console.log(this.fishCapture)
         this.graphics.use(Resources.Dobber.toSprite())
         this.fishCapture = false
         this.tryingToCapture = undefined
+
     }
 
     escapedFish() {
@@ -85,12 +103,12 @@ console.log(this.score + " dsisfjsKJ")
         this.tryingToCapture = undefined
     }
 
-    
+
 
     onPostUpdate(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space) && this.gameStart === false) {
             // super({ width: 150, height: 150 })
-        
+
             this.gameStart = true
             this.frameCounter = 0
             this.graphics.use(Resources.Dobber.toSprite())
@@ -101,7 +119,7 @@ console.log(this.score + " dsisfjsKJ")
             // max pos (1250, 710)
             this.scale = new Vector(0.1, 0.1)
             this.vel = new Vector(0, 0)
-          
+
         }
 
         let xspeed = 0

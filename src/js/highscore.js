@@ -2,9 +2,8 @@ import { Actor, Vector, randomInRange,  Font, FontUnit, Color, Label } from "exc
 import { Resources } from './resources.js'
 
  export class Highscore extends Actor {
-    highScore
-    points
-    score
+    highScore // the variable for text
+    score // the highscore from local storage
     constructor(){
         super()
         this.score = localStorage.getItem("highscore", this.highScore)

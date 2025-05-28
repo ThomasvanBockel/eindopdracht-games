@@ -11,7 +11,7 @@ import { Sun } from './sun.js'
 import { UI } from './ui.js'
 import { Highscore } from './highscore.js'
 import { Days } from './days.js'
-
+import {GoldenFish} from './golden_fish.js'
 
 export class Game extends Engine {
 
@@ -39,10 +39,10 @@ export class Game extends Engine {
         const sun = new Sun()
         this.add(sun)
 
-        // for (let i = 0; i < 50; i++) {
-        //     const cloud = new Cloud()
-        //     this.add(cloud)
-        // }
+         for (let i = 0; i < 8; i++) {
+            const cloud = new Cloud()
+            this.add(cloud)
+         }
 
         for (let i = 0; i < 16; i++) {
 
@@ -50,8 +50,16 @@ export class Game extends Engine {
             this.add(smallFish)
 
         }
+
+        const goldenFish = new GoldenFish()
+        this.add(goldenFish)
+
         for (let i = 0; i < 7; i++) {
             const mediumFish = new MediumFish()
+            this.add(mediumFish)
+        }
+        for (let i = 0; i < 2; i++) {
+            const mediumFish = new Tire()
             this.add(mediumFish)
         }
 
@@ -72,6 +80,7 @@ export class Game extends Engine {
             console.log(this.highscore + "dfnskj")
         }
     }
+  
 }
 
 new Game()
