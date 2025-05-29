@@ -29,7 +29,7 @@ export class Dobber extends Actor {
         // this.vel = new Vector(0, 0)
         this.score = 0
         this.highScore = localStorage.getItem("highscore", this.highScore)
-        console.log(this.highScore)
+        //console.log(this.highScore)
 
     }
 
@@ -68,9 +68,13 @@ export class Dobber extends Actor {
             this.scene.engine.ui.addscore(this.score)
 
         } else if (this.tryingToCapture instanceof GoldenFish) {
-
-            this.scene.engine.gameOver()
-            return;
+            console.log("golden fish")
+            console.log(this.scene)
+            console.log(this.scene.engine)
+            this.tryingToCapture.victoryEffect()
+            // this.scene.engine.gameOver.gameover(this.scene)
+            this.scene.engine.stopTheGame()
+            
 
         } else {
 
@@ -106,6 +110,17 @@ export class Dobber extends Actor {
 
 
     onPostUpdate(engine) {
+        if(!engine.gameover){
+            this.playerControls(engine)
+        }else {
+        let fishes = this.scene.actors.filter(actor => actor instanceof MediumFish || Tire || SmallFish || GoldenFish )
+        console.log("im dead")
+        fishes.forEach(fish => fish.vel = new Vector(0, 0))
+        }
+    }
+
+
+    playerControls(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space) && this.gameStart === false) {
             // super({ width: 150, height: 150 })
 

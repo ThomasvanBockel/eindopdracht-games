@@ -7,9 +7,9 @@ const Resources = {
     Dobber: new ImageSource('images/dobber.png'),
     Cloud: new ImageSource('images/cloud.png'),
     Sun: new ImageSource('images/sun.png'),
-    DopperUnderWater: new ImageSource('images/dopper_underwater.png')
+    DopperUnderWater: new ImageSource('images/dopper_underwater.png'),
+    GoldenShadow: new ImageSource('images/goldenfish.png')
 }
-
 
 
 

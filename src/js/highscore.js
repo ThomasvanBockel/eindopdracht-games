@@ -6,10 +6,15 @@ import { Resources } from './resources.js'
     score // the highscore from local storage
     constructor(){
         super()
-        this.score = localStorage.getItem("highscore", this.highScore)
-        if(this.score === null){
+        this.highScore = 0
+        this.score = 0
+
+        if( localStorage.getItem("highscore")){
+            this.highScore = parseInt( localStorage.getItem("highscore"))
+            this.score = this.highScore
+        } else(
             this.score = 0
-        }
+        )
         console.log(this.highScore)
        this.highScore = new Label({
             text: 'highscore: 0',
