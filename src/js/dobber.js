@@ -100,7 +100,7 @@ export class Dobber extends Actor {
 
     onPostUpdate(engine) {
         if (!engine.gameover) {
-            this.playerControls(engine)
+            this.#playerControls(engine)
         } else {
             let fishes = this.scene.actors.filter(actor => actor instanceof MediumFish || Tire || SmallFish || GoldenFish)
             console.log("im dead")
@@ -109,7 +109,7 @@ export class Dobber extends Actor {
     }
 
 
-    playerControls(engine) {
+    #playerControls(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space) && this.#gameStart === false) {
             this.#gameStart = true
             this.#frameCounter = 0
