@@ -4,14 +4,14 @@ import { UI } from './ui.js'
 
 export class Gameover extends Actor {
 
-    gameOverLabel
+    #gameOverLabel
 
     constructor() {
         super()
        
-        this.gameOverLabel = new Label({
+        this.#gameOverLabel = new Label({
             text: "Game Over",
-            pos: new Vector(640, 250),
+            pos: new Vector(500, 300),
             font: new Font({
                 family: 'Arial',
                 size: 50,
@@ -20,7 +20,7 @@ export class Gameover extends Actor {
             })
         })
 
-        this.addChild(this.gameOverLabel)
+        this.addChild(this.#gameOverLabel)
     }
 
 

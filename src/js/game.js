@@ -50,7 +50,7 @@ export class Game extends Engine {
 
         for (let i = 0; i < 16; i++) {
 
-            const smallFish = new GoldenFish()
+            const smallFish = new SmallFish()
             this.add(smallFish)
 
         }
@@ -88,7 +88,7 @@ export class Game extends Engine {
     }
     onPostUpdate(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Enter) && this.gameover === true) {
-           this.restartTheGame()
+           this.#restartTheGame()
         }
     }
 
@@ -99,7 +99,7 @@ export class Game extends Engine {
         this.add(this.gameOverLabel)
     }
 
-    restartTheGame(engine){
+    #restartTheGame(engine){
         this.currentScene.clear()
         this.startGame()
     }

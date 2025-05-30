@@ -11,10 +11,10 @@ export class Tire extends Actor {
         // max pos (1250, 710)
         this.scale = new Vector(0.15, 0.12)
         this.vel = new Vector(randomInRange(-50, -100),0)
-        this.events.on("exitviewport", (e) => this.FishBack(e))
+        this.events.on("exitviewport", (e) => this.#tireBack(e))
     }
 
-    FishBack(e) {
+    #tireBack(e) {
         e.target.pos = new Vector(randomInRange(1250, 1500), randomInRange(650, 710))
     }
 

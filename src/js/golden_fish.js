@@ -4,17 +4,11 @@ import {SmallFish} from './small_fish.js'
 
 
 export class GoldenFish extends SmallFish {
+
     constructor(){
         super({width: 500, height: 100})
-        // this.graphics.use(Resources.Shadow.toSprite())
-        // this.pos = new Vector(randomInRange(10, 2000),  randomInRange(650, 710))
-        // // max pos (1250, 650)
-        // // max pos (1250, 710)
-        // this.scale = new Vector(0.1, 0.1)
          this.vel = new Vector(randomInRange(-150, -300),0)
-        this.events.on("exitviewport", (e) => this.fishBack(e))
-       
-        
+        this.events.on("exitviewport", (e) => this.#fishBack(e))
     }
 
     victoryEffect(){
@@ -23,7 +17,7 @@ export class GoldenFish extends SmallFish {
              fishes.forEach(fish =>  fish.graphics.use(Resources.GoldenShadow.toSprite()))
     }
 
-    fishBack(e) {
+    #fishBack(e) {
         e.target.pos = new Vector(randomInRange(1250, 1500), randomInRange(650, 710))
     }
 
