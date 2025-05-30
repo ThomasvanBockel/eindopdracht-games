@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, Keyboard, Font, FontUnit, Color, Label, Keys } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, Keyboard, Font, FontUnit, Color, Label, Keys, randomInRange } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Background } from './background.js'
 import { SmallFish } from './small_fish.js'
@@ -33,7 +33,6 @@ export class Game extends Engine {
     }
 
     startGame() {
-        this.showDebug(true)
         this.gameover = false
         const bg = new Background()
         this.add(bg)
@@ -48,23 +47,25 @@ export class Game extends Engine {
             this.add(cloud)
         }
 
-        for (let i = 0; i < 16; i++) {
+        for (let i = 0; i < randomInRange(15, 25); i++) {
 
             const smallFish = new SmallFish()
             this.add(smallFish)
 
         }
 
-        const goldenFish = new GoldenFish()
-        this.add(goldenFish)
+        for (let i = 0; i < randomInRange(1, 3); i++) {
+            const goldenFish = new GoldenFish()
+            this.add(goldenFish)
+        }
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < randomInRange(5, 10); i++) {
             const mediumFish = new MediumFish()
             this.add(mediumFish)
         }
-        for (let i = 0; i < 2; i++) {
-            const mediumFish = new Tire()
-            this.add(mediumFish)
+        for (let i = 0; i < randomInRange(2, 7); i++) {
+            const tire = new Tire()
+            this.add(tire)
         }
 
         const dobber = new Dobber(this.highscore)
@@ -77,7 +78,7 @@ export class Game extends Engine {
         this.add(this.ui)
 
 
-       
+
 
         this.highscore = new Highscore()
         this.add(this.highscore)
@@ -88,18 +89,18 @@ export class Game extends Engine {
     }
     onPostUpdate(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Enter) && this.gameover === true) {
-           this.#restartTheGame()
+            this.#restartTheGame()
         }
     }
 
-    stopTheGame(){
+    stopTheGame() {
         this.gameover = true
         console.log("game over ")
         this.gameOverLabel = new Gameover();
         this.add(this.gameOverLabel)
     }
 
-    #restartTheGame(engine){
+    #restartTheGame(engine) {
         this.currentScene.clear()
         this.startGame()
     }

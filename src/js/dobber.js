@@ -2,7 +2,7 @@ import { Actor, Vector, randomInRange, Keys, Keyboard, } from "excalibur"
 import { Resources } from './resources.js'
 import { SmallFish } from './small_fish.js'
 import { MediumFish } from './medium_fish.js'
-import {GoldenFish} from './golden_fish.js'
+import { GoldenFish } from './golden_fish.js'
 import { Tire } from './tire.js'
 
 
@@ -47,7 +47,7 @@ export class Dobber extends Actor {
 
     #capturedFish() {
         if (this.#tryingToCapture instanceof Tire) {
-           
+
             this.#score = this.#score - 1
             this.scene.engine.ui.addscore(this.#score)
 
@@ -63,7 +63,7 @@ export class Dobber extends Actor {
             this.#tryingToCapture.victoryEffect()
             // this.scene.engine.gameOver.gameover(this.scene)
             this.scene.engine.stopTheGame()
-            
+
 
         } else {
 
@@ -99,31 +99,25 @@ export class Dobber extends Actor {
 
 
     onPostUpdate(engine) {
-        if(!engine.gameover){
+        if (!engine.gameover) {
             this.playerControls(engine)
-        }else {
-        let fishes = this.scene.actors.filter(actor => actor instanceof MediumFish || Tire || SmallFish || GoldenFish )
-        console.log("im dead")
-        fishes.forEach(fish => fish.vel = new Vector(0, 0))
+        } else {
+            let fishes = this.scene.actors.filter(actor => actor instanceof MediumFish || Tire || SmallFish || GoldenFish)
+            console.log("im dead")
+            fishes.forEach(fish => fish.vel = new Vector(0, 0))
         }
     }
 
 
     playerControls(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space) && this.#gameStart === false) {
-            // super({ width: 150, height: 150 })
-
             this.#gameStart = true
             this.#frameCounter = 0
             this.graphics.use(Resources.Dobber.toSprite())
             this.#fishCapture = false
             this.pos = new Vector(700, 652)
-
-            // max pos (1250, 650)
-            // max pos (1250, 710)
             this.scale = new Vector(0.1, 0.1)
             this.vel = new Vector(0, 0)
-
         }
 
         let xspeed = 0

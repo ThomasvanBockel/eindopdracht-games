@@ -1,11 +1,11 @@
-import { Actor, Vector, randomInRange,  Font, FontUnit, Color, Label } from "excalibur"
+import { Actor, Vector, randomInRange, Font, FontUnit, Color, Label } from "excalibur"
 import { Resources } from './resources.js'
 
- export class Days extends Actor {
+export class Days extends Actor {
     #dayLabel
-    constructor(){
+    constructor() {
         super()
-       this.#dayLabel = new Label({
+        this.#dayLabel = new Label({
             text: 'Day: 1',
             pos: new Vector(100, 0),
             font: new Font({
@@ -15,10 +15,10 @@ import { Resources } from './resources.js'
                 color: Color.Black
             })
         })
-         this.addChild(this.#dayLabel)
-         this.#dayLabel.text = 'Day: 1'
+        this.addChild(this.#dayLabel)
+        this.#dayLabel.text = 'Day: 1'
     }
-    addDays(day){
+    addDays(day) {
         this.#dayLabel.text = `Day: ${day}`
     }
 }

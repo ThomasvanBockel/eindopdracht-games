@@ -8,7 +8,7 @@ export class Gameover extends Actor {
 
     constructor() {
         super()
-       
+
         this.#gameOverLabel = new Label({
             text: "Game Over",
             pos: new Vector(500, 300),
@@ -19,9 +19,6 @@ export class Gameover extends Actor {
                 color: Color.Red
             })
         })
-
         this.addChild(this.#gameOverLabel)
     }
-
-
 }
